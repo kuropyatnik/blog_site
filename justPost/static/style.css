@@ -72,9 +72,20 @@ div#footer
 
 }
 div#footer p{
-
     margin:0;
     padding:5px 10px;
+}
+
+div#register{
+    background: #f6c57a;
+    text-align: left;
+    display:inline-block;
+    /*width:20%;*/
+    /*height: 100%;*/
+    margin-left: 25%;
+    margin-top: 5%;
+    padding: 5px;
+    float: left;
 }
 
 

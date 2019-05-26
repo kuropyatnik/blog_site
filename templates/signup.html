@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Регистрация</h2>
+    <div id="register">
+    <center><h2>Регистрация</h2></center>
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
@@ -20,6 +21,7 @@
                 {% endfor %}
             </p>
             {% endfor %}
-            <button type="submit">Sign up</button>
+            <center><button type="submit">Зарегистрироваться</button></center>
         </form>
+    </div>
 {% endblock %}
