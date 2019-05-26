@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% block head %}
+    <title>Just Post IT</title>
+{% endblock %}
+
+{% block body %}
+    <div id="container">
+  {% block top-header %}<div id="header"><h1><a href="">Just Post IT</a></h1></div> {% endblock %}
+   {% block navigation %}
+  <div id="navigation">
+    <p><strong>Даниил Куропятник</strong></p>
+    <ul>
+        <li><a href="">Добавить пост</a></li>
+        <li><a href="">Мои посты</a></li>
+        <li><a href="">Лента</a></li>
+        <li><a href="">Все записи</a></li>
+        <li><a href="">Выйти из аккаунта</a></li>
+    </ul>
+  </div>
+    {% endblock %}
+
+    {% block content %}
+  <div id="content">
+    <p><strong>Content here.</strong></p>
+    <p>Sapibulumnibh phasellus nulla egestibulum enim pretium elit tincidunt estiquam ultrisque donectetur. Sedcondimentumsan odio hendrerit proin vitae dignis nibh ac justo id congue. Amesintesque vel curabitae volutpat donec alique nasceleifendimentesque montesque rhoncus quis eros. Vestnunc nonummy</p>
+    <p>Montegeraliquam sed pede in cursus praesenec vestas rhoncus wisi at wisi. Condisseloborttis enim et ipsum mauristie id felit adipiscipit ac auctortorttitor sempor. Vitantesqueat sempus non sed et mus sit vivamus purus netus hendiment. Pretiuma diam et id tempus dolor por wisi sed volutpat facilisi.</p>
+    <p>Wisiet sus adipit phasellentum elit condissim consecteturpiscing sapien vivamus et congue. Utvel tris quismod cursus liberos elit nisse curabitur tur parturpis tellenterdum. Semperligula curabitae tellentesque nulla trices vestas ristibulum id justo auctor facinia. Natisdonec consequat nibh pellus.</p>
+    <p>Vestibusodio euisque id elerisus lacus tincidunt sit malesuada lacus pellus parturpiscing. Pellenterdumat maecenatoque cras a magna nibh et quis diam ames et. Laoremvolutpat ac dolor eget eget temper lacus vestibus velit lacus venean. Magnaipsum tellus morbi leo aliquat nulla convallis pellentesque.</p>
+  </div>
+    {%  endblock %}
+
+    {% block counters %}
+  <div id="extra">
+    <p><strong>More stuff here.</strong></p>
+    <p>Подписок: 45</p>
+    <p>Подписчиков: 27</p>
+  </div>
+{% endblock %}
+</div>
+    <div id="footer">
+    <p>Footer</p>
+  </div>
+{% endblock %}
