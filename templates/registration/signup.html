@@ -11,17 +11,18 @@
             {% csrf_token %}
             {% for field in form %}
             <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
+{#                {{ field.label_tag }}<br>#}
+                {{ field }}<br>
                 {% if field.help_text %}
                     <small style="color: grey">{{ field.help_text }}</small>
                 {% endif %}
                 {% for error in field.errors %}
                     <p style="color: red">{{ error }}</p>
                 {% endfor %}
+
             </p>
             {% endfor %}
-            <center><button type="submit">Зарегистрироваться</button></center>
+            <center><button type="submit" class="myButton">Зарегистрироваться</button></center><br>
         </form>
     </div>
 {% endblock %}

@@ -9,14 +9,16 @@
   {% block top-header %}<div id="header"><h1><a href="">Just Post IT</a></h1></div> {% endblock %}
    {% block navigation %}
   <div id="navigation">
-    <p><strong>Даниил Куропятник</strong></p>
-    <ul>
+   {% if user.is_authenticated %}
+      <p><h3>Добро пожаловать, {{ user.get_username }}</h3></p>
+       <ul>
         <li><a href="">Добавить пост</a></li>
         <li><a href="">Мои посты</a></li>
         <li><a href="">Лента</a></li>
         <li><a href="">Все записи</a></li>
-        <li><a href="">Выйти из аккаунта</a></li>
+        <li><a href="{% url 'logout' %}">Выйти из аккаунта</a></li>
     </ul>
+   {% endif %}
   </div>
     {% endblock %}
 

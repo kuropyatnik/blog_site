@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Авторизация</title>
+{% endblock %}
+
+{% block body %}
+    <div id="register">
+    <center><h2>{% block title %}Введите ваши данные{% endblock %}</h2></center>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>
+                {{ field }}<br>
+                 </p>
+            {% endfor %}
+            {% if form.errors %}
+                <p style="color:red">
+                    Пожалуйста, введите правильные имя пользователя и пароль.
+                    Оба поля могут быть чувствительны к регистру.
+                </p>
+            {% endif %}
+            <center><button type="submit" class="myButton">Войти</button></center><br>
+            <center><a href={% url 'signup' %}>Создать аккаунт</a></center>
+        </form>
+    </div>
+{% endblock %}
