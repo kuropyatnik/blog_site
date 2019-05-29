@@ -69,3 +69,11 @@ def allPostsView(request):
             return render(request, 'posts.html', {'posts': posts})
     else:
         return redirect('login')
+
+def authorPostsView(request,stub):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            posts = Posts.objects.filter(author__user__username__exact=stub).order_by('-pub_date')
+            return render(request, 'posts.html', {'posts': posts})
+    else:
+        return redirect('login')
