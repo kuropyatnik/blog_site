@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from justPost.views import signupView, loginView, logoutView
-from .settings import LOGOUT_REDIRECT_URL
 
 urlpatterns = [
     path('admin/', admin.site.urls),

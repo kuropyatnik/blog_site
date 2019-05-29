@@ -28,3 +28,15 @@ class LoginForm(AuthenticationForm):
         super(LoginForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = 'Введите имя пользователя'
         self.fields['password'].widget.attrs['placeholder'] = 'Введите пароль'
+
+class PostForm(forms.Form):
+    title = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'rows': 1, 'style': 'resize:none; width: 100%;'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows': 7, 'style': 'resize:none; width: 100%;'}))
+
+    class Meta:
+        fields = ["title", "content"]
+
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['placeholder'] = 'Название поста'
+        self.fields['content'].widget.attrs['placeholder'] = 'Содержимое'

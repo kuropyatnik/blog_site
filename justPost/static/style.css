@@ -1,13 +1,13 @@
 html,body{
     margin:0;
-    padding:0;
+    /*padding:0;*/
     height: 100%;
 }
 body{
     font: 76% arial,sans-serif;
     text-align:center;
 }
-p{margin:0 10px 10px}
+p{margin:10px}
 a{
     padding:5px;
     text-decoration:none;
@@ -28,14 +28,12 @@ div#header h1{
 div#container{
     height:100vh;
     width:100%;
-    margin:0 auto;
     text-align:center;
 }
 
 div#navigation{
     background:#F6F0E0;
-    display:inline-block;
-    width:20%;
+    width:19%;
     height: 100%;
     float: left;
 }
@@ -47,8 +45,7 @@ div#navigation ul{
 div#navigation li{margin-bottom:5px;}
 
 div#content{
-    display:inline-block;
-    width:60%;
+    width:61%;
     height: 100%;
     float: left;
 }
@@ -57,7 +54,7 @@ div#content p{line-height:1.4}
 div#extra {
     background:#CCC8B3;
     display:inline-block;
-    width:20%;
+    width:19%;
     height: 100%;
 
 }
@@ -96,6 +93,7 @@ input[type=text], input[type=password], input[type=email]{
   border: 1px solid black;
   background-color: #f6c57a;
   color: white;
+    box-sizing:border-box;
 }
 
 .myButton {
@@ -139,8 +137,27 @@ input[type=text], input[type=password], input[type=email]{
 	top:1px;
 }
 
+div.post_container{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+    text-align: left;
+    margin-right: 4px;
+    margin-left: 10px;
+}
 
+div.svg_container{
+    display: inline-block;
+}
 
+div.outside {
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center }
+div.outside svg, div.outside a {
+    margin: 0;
+    font-size: 1.1em;
+    color: darkslategray;
+}
 
 
 
