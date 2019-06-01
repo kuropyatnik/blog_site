@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from .forms import SignUpForm, LoginForm, PostForm
 from .models import Profile, Posts
 from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 def signupView(request):
     if request.method == 'POST':
@@ -21,6 +23,7 @@ def signupView(request):
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+
 def loginView(request):
     if request.method == 'POST':
         form = LoginForm(request=request, data=request.POST)
@@ -37,15 +40,20 @@ def loginView(request):
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
 
+
 def logoutView(request):
     logout(request)
     return redirect('login')
+
 
 def indexView(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             form = PostForm()
-            posts = Posts.objects.filter(author_id__exact=request.user.id).order_by('-pub_date')
+
+            posts = paginateRecords(request,
+                                    Posts.objects.filter(author_id__exact=request.user.id).order_by('-pub_date'), 2)
+
             return render(request, 'home.html', {'form': form, 'posts': posts})
         elif request.method == 'POST':
             form = PostForm(data=request.POST)
@@ -77,3 +85,16 @@ def authorPostsView(request,stub):
             return render(request, 'posts.html', {'posts': posts})
     else:
         return redirect('login')
+
+
+def paginateRecords(request, records, num_records):
+    page = request.GET.get('page', 1)
+    paginator = Paginator(records, num_records)
+    try:
+        records_paginated = paginator.page(page)
+    except PageNotAnInteger:
+        records_paginated = paginator.page(1)
+    except EmptyPage:
+        records_paginated = paginator.page(paginator.num_pages)
+
+    return records_paginated

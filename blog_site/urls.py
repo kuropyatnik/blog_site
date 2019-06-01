@@ -17,12 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from justPost.views import signupView, loginView, logoutView
+from justPost.views import indexView, allPostsView, authorPostsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('justPost.urls')),
     url(r'^signup/$', signupView, name='signup'),
     url(r'^login/$', loginView, name='login'),
     url(r'^logout/$', logoutView, name='logout'),
     path('home/', include('justPost.urls')),
+    path('posts/', allPostsView, name='posts'),
+    url(r'^author/(?P<stub>[-\w]+)$', authorPostsView, name='author'),
 
 ]
