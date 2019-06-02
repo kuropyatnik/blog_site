@@ -126,7 +126,8 @@ def singlePostView(request, pk):
     if request.user.is_authenticated:
         if request.method == 'GET':
             post = Posts.objects.filter(post_id__exact=pk).first()
-
+            request.user.profile.viewed_posts.add(post)
+            request.user.save()
             return render(request, 'post.html',
                           {'post': post})
     else:

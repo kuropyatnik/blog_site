@@ -69,7 +69,11 @@
                         {% block empty_page %}<h3> Вы ещё ничего не писали. Поделитесь чем-то, не стесняйтесь! </h3>{% endblock %}
                     {% endif %}
                     {% for post in posts %}
-                        <div class="post_container">
+                        {% if post in user.profile.viewed_posts.all %}
+                            <div class="post_container" style="background-color: lightgrey">
+                        {% else %}
+                            <div class="post_container">
+                        {% endif %}
                             <h3><a href="{% url 'single-post' post.post_id %}">{{ post.title }}</a></h3>
                             <div class="svg_container">
                                 <div class="outside">
