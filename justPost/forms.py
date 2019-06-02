@@ -18,7 +18,6 @@ class SignUpForm(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
         self.fields['password2'].widget.attrs['placeholder'] = 'Повторите пароль'
 
-
 class LoginForm(AuthenticationForm):
     class Meta:
         model = User
@@ -40,3 +39,7 @@ class PostForm(forms.Form):
         super(PostForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs['placeholder'] = 'Название поста'
         self.fields['content'].widget.attrs['placeholder'] = 'Содержимое'
+
+class SubForm(forms.Form):
+    user_to = forms.HiddenInput()
+    actionType = forms.HiddenInput()

@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import SignUpForm, LoginForm, PostForm
+from .forms import SignUpForm, LoginForm, PostForm, SubForm
 from .models import Profile, Posts
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -85,13 +85,45 @@ def authorPostsView(request,stub):
             posts = Posts.objects.filter(author__user__username__exact=stub).order_by('-pub_date')
             author = User.objects.filter(username__exact=stub).first()
             posts = paginateRecords(request, posts)
+            try:
+                obj = request.user.profile.subscriptions.get(user=author)
+                subscription = True
+            except Profile.DoesNotExist:
+                subscription = False
+
+            form = SubForm()
             return render(request, 'author.html',
-                          {'posts': posts, 'author_name': author.username, 'about_author': author.profile.about_me})
+                          {'posts': posts, 'author': author,
+                           'sub': subscription, 'form': form})
+
+        elif request.method == 'POST':
+            user_to = User.objects.filter(username__exact=stub).first().profile
+            me = request.user
+
+            try:
+                obj = me.profile.subscriptions.get(user_id__exact=user_to.id)
+                me.profile.subscriptions.remove(user_to)
+            except Profile.DoesNotExist:
+                me.profile.subscriptions.add(user_to)
+            me.save()
+
+            return redirect('author', stub)
     else:
         return redirect('login')
 
 
-def paginateRecords(request, records, num_records=2):
+def singlePostView(request, pk):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            post = Posts.objects.filter(post_id__exact=pk).first()
+            return render(request, 'post.html',
+                          {'post': post})
+    else:
+        return redirect('login')
+
+
+# Method for pagination
+def paginateRecords(request, records, num_records=7):
     page = request.GET.get('page', 1)
     paginator = Paginator(records, num_records)
     try:

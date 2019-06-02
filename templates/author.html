@@ -1,9 +1,19 @@
 {% extends 'home.html' %}
 {% block inputForm %}
     <div style="text-align: left; margin-left: 10px; margin-right: 2px">
-        <h2>Имя пользователя: {{ author_name }}</h2>
-        <h3>О пользователе:</h3><br>
-        <textarea readonly style="resize: none; width: 99%;">{{ about_author }}</textarea>
+        <h2>Имя пользователя: {{ author.username }}</h2>
+        <h3>О пользователе:</h3>
+        <textarea readonly style="resize: none; width: 99%;font-size: 15px">{{ author.profile.about_me }}</textarea>
+        <br><br>
+        <form method="post">
+            {% csrf_token %}
+            {% if sub %}
+                <button type="submit" class="cancel">Отменить подписку</button>
+            {% else %}
+                <button type="submit" class="subscribe">Подписаться</button>
+            {% endif %}
+        </form>
+
     </div>
     <br>
 {% endblock %}

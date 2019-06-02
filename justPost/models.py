@@ -8,8 +8,8 @@ from django.dispatch import receiver
 class Profile (models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     about_me = models.CharField(max_length=250, null=True, blank=True)
-    subscriptions = models.ManyToManyField('self', related_name='subscribers')
-    viewed_posts = models.ManyToManyField('Posts', related_name='viewers')
+    subscriptions = models.ManyToManyField('self', related_name='subscribers', symmetrical=False)
+    viewed_posts = models.ManyToManyField('Posts', related_name='viewers', symmetrical=False)
 
     def str(self):
         return self.username
