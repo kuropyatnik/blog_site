@@ -1,0 +1,6 @@
+{% autoescape off %}
+Привет, дорогой {{ user.username }},
+А там, между прочим, {{ post.author.user.username }} выложил новый пост: "{{ post.title }}"
+Чтобы его не пропустить, перейди по ссылке:
+    http://{{ domain }}{% url 'single-post' post.post_id %}
+{% endautoescape %}

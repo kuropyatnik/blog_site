@@ -25,7 +25,7 @@ SECRET_KEY = 'e=dqgy%8i!o%$mb8!#@ytz9vf2e!_h&a_7-e+2((of(=h@uv&n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -83,6 +83,10 @@ DATABASES = {
     }
 }
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'siteblog789@gmail.com'
+EMAIL_HOST_PASSWORD = 'testpass11'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

@@ -1,10 +1,17 @@
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.conf import settings
+
 from .forms import SignUpForm, LoginForm, PostForm, SubForm
 from .models import Profile, Posts
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
+from django.core import mail
 
 
 def signupView(request):
@@ -50,7 +57,6 @@ def indexView(request):
     if request.user.is_authenticated:
         if request.method == 'GET':
             form = PostForm()
-
             posts = paginateRecords(request,
                                     Posts.objects.filter(author_id__exact=request.user.id).order_by('-pub_date'))
 
@@ -64,6 +70,26 @@ def indexView(request):
                 pub_date = datetime.now()
                 newPost = Posts(author=author, title=title, content=content, pub_date=pub_date)
                 newPost.save()
+
+                subs_on_me = Profile.objects.filter(user_id__in=[x.user.id for x in request.user.profile.subscribers.all()])
+                messages = []
+                for sub in subs_on_me:
+                    current_site = get_current_site(request)
+                    mail_subject = 'Не пропустите новый пост!'
+                    message = render_to_string('new_post_tmpl.html', {
+                        'user': sub.user,
+                        'domain': current_site.domain,
+                        'post': newPost
+                    })
+                    to_email = sub.user.email
+                    email = EmailMessage(
+                        mail_subject, message, to=[to_email], from_email=settings.EMAIL_HOST_USER
+                    )
+                    messages.append(email)
+
+                connection = mail.get_connection()
+                connection.send_messages(messages)
+                connection.close()
             return redirect('home')
         return render(request, 'home.html')
     else:
