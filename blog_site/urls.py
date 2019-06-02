@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from justPost.views import signupView, loginView, logoutView
-from justPost.views import indexView, allPostsView, authorPostsView, singlePostView
+from justPost.views import indexView, allPostsView, authorPostsView, singlePostView, feedPostsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^logout/$', logoutView, name='logout'),
     path('home/', include('justPost.urls')),
     path('posts/', allPostsView, name='posts'),
+    path('feed/', feedPostsView, name='feed'),
     url(r'^author/(?P<stub>[-\w]+)$', authorPostsView, name='author'),
     url(r'^post/(?P<pk>\d+)$', singlePostView, name='single-post'),
 

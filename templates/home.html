@@ -13,7 +13,7 @@
                     <p><h3>Добро пожаловать, {{ user.get_username }}</h3></p>
                     <ul>
                         <li><a href="{% url 'home' %}">Мои посты</a></li>
-                        <li><a href="">Лента</a></li>
+                        <li><a href="{% url 'feed' %}">Лента</a></li>
                         <li><a href="{% url 'posts' %}">Все записи</a></li>
                         <li><a href="{% url 'logout' %}">Выйти из аккаунта</a></li>
                     </ul>
@@ -65,6 +65,9 @@
                     </div>
                 {% endif %}
                 <div>
+                    {% if posts.object_list.count <= 0 %}
+                        {% block empty_page %}<h3> Вы ещё ничего не писали. Поделитесь чем-то, не стесняйтесь! </h3>{% endblock %}
+                    {% endif %}
                     {% for post in posts %}
                         <div class="post_container">
                             <h3><a href="{% url 'single-post' post.post_id %}">{{ post.title }}</a></h3>
@@ -98,13 +101,13 @@
 
         {% block counters %}
             <div id="extra">
-                <p><strong>More stuff here.</strong></p>
-                <p>Подписок: 45</p>
-                <p>Подписчиков: 27</p>
+                <p><strong>Статистика Вашего профиля</strong></p>
+                <p>Подписок: {{ user.profile.subscriptions.count }}</p>
+                <p>Подписчиков: {{ user.profile.subscribers.count }}</p>
             </div>
         {% endblock %}
     </div>
     <div id="footer">
-        <p>Footer</p>
+        <p><a href="https://github.com/kuropyatnik">Ele-ele made by kuropyatnik</a></p>
     </div>
 {% endblock %}

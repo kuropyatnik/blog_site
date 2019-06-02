@@ -79,6 +79,17 @@ def allPostsView(request):
     else:
         return redirect('login')
 
+
+def feedPostsView(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            subs = [x.user.id for x in request.user.profile.subscriptions.all()]
+            posts = Posts.objects.filter(author__user_id__in=subs).order_by('-pub_date')
+            posts = paginateRecords(request, posts)
+            return render(request, 'posts.html', {'posts': posts})
+    else:
+        return redirect('login')
+
 def authorPostsView(request,stub):
     if request.user.is_authenticated:
         if request.method == 'GET':
@@ -99,7 +110,6 @@ def authorPostsView(request,stub):
         elif request.method == 'POST':
             user_to = User.objects.filter(username__exact=stub).first().profile
             me = request.user
-
             try:
                 obj = me.profile.subscriptions.get(user_id__exact=user_to.id)
                 me.profile.subscriptions.remove(user_to)
@@ -116,6 +126,7 @@ def singlePostView(request, pk):
     if request.user.is_authenticated:
         if request.method == 'GET':
             post = Posts.objects.filter(post_id__exact=pk).first()
+
             return render(request, 'post.html',
                           {'post': post})
     else:
